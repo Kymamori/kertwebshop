@@ -1,0 +1,22 @@
+.sidenav-container {
+    height: 100vh;
+  }
+  
+  mat-sidenav {
+    width: 240px;
+  }
+  
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  
+  .menu-button {
+    margin-right: 1rem;
+  }
+  
+  .active-link {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  

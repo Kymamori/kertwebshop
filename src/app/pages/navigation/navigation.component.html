@@ -1,0 +1,30 @@
+<mat-sidenav-container class="sidenav-container">
+
+    <mat-sidenav #sidenav mode="side" opened>
+      <mat-toolbar>🌿 Menü</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/" routerLinkActive="active-link">
+          <mat-icon>home</mat-icon>
+          <span>Főoldal</span>
+        </a>
+        <a mat-list-item routerLink="/termekek" routerLinkActive="active-link">
+          <mat-icon>storefront</mat-icon>
+          <span>Termékek</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button mat-icon-button (click)="toggleSidenav()" class="menu-button">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="logo">🌱 KertWebshop</span>
+        <span class="spacer"></span>
+      </mat-toolbar>
+  
+      <ng-content></ng-content> <!-- fő tartalom helye -->
+    </mat-sidenav-content>
+  
+  </mat-sidenav-container>
+  
