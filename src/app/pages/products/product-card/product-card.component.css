@@ -1,0 +1,13 @@
+/* src/app/pages/products/product-card/product-card.component.css */
+.product-card {
+  width: 250px;
+  margin: 16px;
+  padding: 16px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #4caf50;
+  margin: 8px 0;
+}

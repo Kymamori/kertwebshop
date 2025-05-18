@@ -1,22 +1,21 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ProductCardComponent } from './product-card.component';
+import { Component, inject } from '@angular/core';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../models/product.model';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { Observable } from 'rxjs';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule,ProductCardComponent],
+  imports: [CommonModule, AsyncPipe, MatCardModule, MatButtonModule, ProductCardComponent, MatDialogModule],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
-  products = [
-    { name: 'Cserép', description: 'Kerámia virágcserép', price: 990 },
-    { name: 'Locsolókanna', description: 'Fém kanna 5L', price: 2490 },
-    { name: 'Virágföld', description: '10L univerzális virágföld', price: 790 }
-  ];
-
-  onProductAdded(product: any) {
-    console.log('Kosárba téve:', product);
-  }
+  private productService = inject(ProductService);
+  products$: Observable<Product[]> = this.productService.getProducts();
 }

@@ -21,9 +21,22 @@
   }
 
   /* navigation.component.css */
+/* Cart icon styling */
+mat-icon[matBadge] {
+  margin-right: 8px;
+}
+
+.mat-badge-content {
+  font-size: 0.6em;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+}
+
+/* User email styling */
 .user-email {
   font-size: 0.9rem;
-  margin-right: 1rem;
+  margin-left: 16px;
   padding: 0 8px;
 }
   

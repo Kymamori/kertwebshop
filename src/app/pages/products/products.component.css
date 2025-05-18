@@ -1,1 +1,8 @@
-  
+  /* src/app/pages/products/products.component.css */
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 16px;
+  gap: 16px;
+}

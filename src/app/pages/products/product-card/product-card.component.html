@@ -1,0 +1,11 @@
+<!-- product-card.component.html -->
+<mat-card class="product-card">
+  <mat-card-content>
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <p class="price">{{ product.price | currency:'HUF ':'symbol':'1.0-0' }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="addToCart()">Kosárba</button>
+  </mat-card-actions>
+</mat-card>

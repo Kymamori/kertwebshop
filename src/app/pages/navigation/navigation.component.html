@@ -31,14 +31,25 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <button mat-icon-button (click)="toggleSidenav()" class="menu-button">
         <mat-icon>menu</mat-icon>
       </button>
       <span class="logo">🌱 KertWebshop</span>
       <span class="spacer"></span>
-      <!-- Safe navigation operator for user email -->
+      
+      <!-- Cart Icon with Badge -->
+      <button 
+        *ngIf="(currentUser$ | async) as user"
+        mat-icon-button 
+        [matBadge]="cartItemCount$ | async" 
+        matBadgeColor="warn" 
+        routerLink="/cart">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      
+      <!-- User Email -->
       <span *ngIf="(currentUser$ | async)?.email as userEmail" class="user-email">
         {{ userEmail }}
       </span>

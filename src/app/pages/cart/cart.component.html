@@ -1,0 +1,63 @@
+<!-- cart.component.html -->
+<ng-container *ngIf="cart$ | async as cart; else loginPrompt">
+  <mat-card *ngIf="cart.items.length > 0; else emptyCart">
+    <mat-card-title>Kosár ({{ cart.itemCount }} termék)</mat-card-title>
+    
+    <mat-list>
+      <mat-list-item *ngFor="let item of cart.items" class="cart-item">
+        <h3 matListItemTitle>{{ item.name }}</h3>
+        <div class="price-delete-container">
+          <p matListItemLine>
+            {{ item.price | currency:'HUF':'symbol':'1.0-0' }}
+            <span class="category">{{ item.category }}</span>
+          </p>
+          <button mat-icon-button 
+                  (click)="removeFromCart(item.productId)"
+                  matTooltip="Eltávolítás a kosárból"
+                  aria-label="Termék eltávolítása"
+                  class="delete-button">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-card-content class="totals">
+      <div class="total-row">
+        <span>Összesen:</span>
+        <span>{{ cart.totalCost | currency:'HUF':'symbol':'1.0-0' }}</span>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button 
+              color="primary" 
+              routerLink="/checkout"
+              [disabled]="cart.itemCount === 0">
+        Tovább a fizetéshez
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <ng-template #emptyCart>
+    <mat-card>
+      <mat-card-content>
+        <p>A kosara üres</p>
+        <button mat-button routerLink="/products">Vásárlás folytatása</button>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</ng-container>
+
+<ng-template #loginPrompt>
+  <mat-card>
+    <mat-card-content>
+      <p>A kosár megtekintéséhez be kell jelentkeznie</p>
+      <button mat-raised-button 
+              color="primary" 
+              (click)="navigateToLogin()">
+        Bejelentkezés
+      </button>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

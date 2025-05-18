@@ -1,7 +1,7 @@
+<!-- src/app/pages/products/products.component.html -->
 <div class="products-grid">
-  <app-product-card
-    *ngFor="let product of products"
-    [product]="product"
-    (addToCart)="onProductAdded(product)">
-  </app-product-card>
+  <!-- Move *ngFor to a container element -->
+  <ng-container *ngFor="let product of products$ | async">
+    <app-product-card [product]="product"></app-product-card>
+  </ng-container>
 </div>
