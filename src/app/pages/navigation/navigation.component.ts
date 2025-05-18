@@ -38,13 +38,8 @@ export class NavigationComponent {
   
   currentUser$ = this.authService.currentUser$;
   
-  cartItemCount$: Observable<number> = this.authService.currentUser$.pipe(
-    switchMap(user => {
-      if (!user) return of(0);
-      return this.cartService.getCart().pipe(
-        map(cart => cart?.itemCount || 0)
-      );
-    })
+  cartItemCount$: Observable<number> = this.cartService.currentCart$.pipe(
+    map(cart => cart?.itemCount || 0)
   );
 
   toggleSidenav() {

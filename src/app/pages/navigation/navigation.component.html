@@ -41,11 +41,11 @@
       
       <!-- Cart Icon with Badge -->
       <button 
-        *ngIf="(currentUser$ | async) as user"
+        *ngIf="(currentUser$ | async)"
         mat-icon-button 
         [matBadge]="cartItemCount$ | async" 
         matBadgeColor="warn" 
-        routerLink="/cart">
+        (click)="navigateToCart()">
         <mat-icon>shopping_cart</mat-icon>
       </button>
       

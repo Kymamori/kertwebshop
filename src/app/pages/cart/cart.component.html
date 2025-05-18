@@ -1,24 +1,24 @@
-<!-- cart.component.html -->
-<ng-container *ngIf="cart$ | async as cart; else loginPrompt">
+<ng-container *ngIf="cart$ | async as cart">
   <mat-card *ngIf="cart.items.length > 0; else emptyCart">
     <mat-card-title>Kosár ({{ cart.itemCount }} termék)</mat-card-title>
     
     <mat-list>
       <mat-list-item *ngFor="let item of cart.items" class="cart-item">
-        <h3 matListItemTitle>{{ item.name }}</h3>
-        <div class="price-delete-container">
+        <div class="item-content">
+          <h3 matListItemTitle>{{ item.name }}</h3>
           <p matListItemLine>
             {{ item.price | currency:'HUF':'symbol':'1.0-0' }}
             <span class="category">{{ item.category }}</span>
           </p>
-          <button mat-icon-button 
-                  (click)="removeFromCart(item.productId)"
-                  matTooltip="Eltávolítás a kosárból"
-                  aria-label="Termék eltávolítása"
-                  class="delete-button">
-            <mat-icon>close</mat-icon>
-          </button>
         </div>
+        
+        <button mat-icon-button 
+                (click)="removeFromCart(item.productId)"
+                class="delete-button"
+                matTooltip="Eltávolítás a kosárból"
+                aria-label="Termék eltávolítása">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-list-item>
     </mat-list>
 
@@ -30,10 +30,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button 
-              color="primary" 
-              routerLink="/checkout"
-              [disabled]="cart.itemCount === 0">
+      <button mat-raised-button color="primary" routerLink="/checkout">
         Tovább a fizetéshez
       </button>
     </mat-card-actions>
@@ -48,16 +45,3 @@
     </mat-card>
   </ng-template>
 </ng-container>
-
-<ng-template #loginPrompt>
-  <mat-card>
-    <mat-card-content>
-      <p>A kosár megtekintéséhez be kell jelentkeznie</p>
-      <button mat-raised-button 
-              color="primary" 
-              (click)="navigateToLogin()">
-        Bejelentkezés
-      </button>
-    </mat-card-content>
-  </mat-card>
-</ng-template>

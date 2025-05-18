@@ -32,7 +32,8 @@ export class CartComponent {
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
   
-  cart$ = this.cartService.getCart();
+  // Use currentCart$ instead of getCart() since we're using BehaviorSubject now
+  cart$ = this.cartService.currentCart$;
 
   async removeFromCart(productId: string): Promise<void> {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -52,7 +53,8 @@ export class CartComponent {
         this.showSnackbar('Termék sikeresen eltávolítva a kosárból', 'success');
       } catch (error) {
         console.error('Error removing item:', error);
-        this.showSnackbar('Hiba történt a termék eltávolítása közben', 'error');
+        const errorMessage = this.getErrorMessage(error);
+        this.showSnackbar(errorMessage, 'error');
         
         // Redirect to login if unauthorized
         if (error instanceof Error && error.message.includes('auth')) {
@@ -73,5 +75,21 @@ export class CartComponent {
       duration: 3000,
       panelClass: [`${type}-snackbar`]
     });
+  }
+
+  private getErrorMessage(error: unknown): string {
+    if (error instanceof Error) {
+      switch (error.message) {
+        case 'Redirecting to login':
+          return 'Bejelentkezés szükséges a művelethez';
+        case 'Cart not found':
+          return 'A kosár nem található';
+        case 'Product not found in cart':
+          return 'A termék nem található a kosárban';
+        default:
+          return 'Hiba történt a termék eltávolítása közben';
+      }
+    }
+    return 'Ismeretlen hiba történt';
   }
 }
